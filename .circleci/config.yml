@@ -189,7 +189,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      - checkoout
+      - checkout
       - run:
           name: Install dependencies
           command: |
