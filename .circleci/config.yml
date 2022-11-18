@@ -199,17 +199,16 @@ jobs:
             yum install -y ansible gzip
             yum install -y node gzip
             yum install -y npm gzip
-            yum install -y awscli gzip
-            
+            yum install -y awscli gzip            
       - run:
           name: Get backend url
           command: |
             # your code here
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-      - run:
-          name: Deploy frontend objects
-          command: |
+#      - run:
+#          name: Deploy frontend objects
+#          command: |
             # your code here
       # Here's where you will add some code to rollback on failure 
       - destroy-environment
