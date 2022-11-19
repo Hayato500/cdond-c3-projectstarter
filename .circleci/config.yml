@@ -214,7 +214,8 @@ jobs:
             pip install ansible
             pip install node
             pip install npm
-            pip install awscli         
+            pip install awscli
+            apk add openssh-client
       - run:
           name: Get backend url
           command: |
@@ -244,10 +245,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            pip install awscli
             apk add --update npm
             apk add --update nodejs
-            pip install awscli
+            apk add --update ansible
+            apk add openssh-client
       - run:
           name: Deploy backend
           command: |
