@@ -211,11 +211,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install awscli
+            apk add --update awscli
             apk add --update npm
             apk add --update nodejs
             apk add --update ansible
-            apk add --update webpack
             apk add openssh-client
       - run:
           name: Get backend url
@@ -229,8 +228,8 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm install
             npm run build
-            npm install -g webpack-dev-server
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 #      - destroy-environment
@@ -260,7 +259,7 @@ jobs:
             npm run build
             cd ..
             # Zip the directory
-            tar -C backend -czvf project/.circleci/ansible/artifact.tar.gz .
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
