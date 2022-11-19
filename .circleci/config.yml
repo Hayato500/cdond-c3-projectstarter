@@ -211,11 +211,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update awscli
             apk add --update npm
             apk add --update nodejs
             apk add --update ansible
             apk add openssh-client
+            pip install awscli
       - run:
           name: Get backend url
           command: |
@@ -246,11 +246,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install awscli
             apk add --update npm
             apk add --update nodejs
             apk add --update ansible
             apk add openssh-client
+            pip install awscli
       - run:
           name: Deploy backend
           command: |
