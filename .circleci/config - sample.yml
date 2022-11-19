@@ -1,10 +1,9 @@
-            
 jobs:
   smoke-test:
     docker:
       # Lightweight Docker image 
     steps:
-      # Checkout code from git
+      - checkout
       - run:
           name: Install dependencies
           command: |
@@ -21,12 +20,13 @@ jobs:
           name: Frontend smoke test.
           command: |
             # your code here
-      # Here's where you will add some code to rollback on failure  
+      # Here's where you will add some code to rollback on failure
 
   cloudfront-update:
-    docker: aws-cli/2.7.24
+    docker: 
+      - image: aws-cli/2.7.24
     steps:
-      # Checkout code from git
+      - checkout
       - run:
           name: Install dependencies
           command: |
@@ -35,13 +35,13 @@ jobs:
           name: Update cloudfront distribution
           command: |
             # your code here
-      # Here's where you will add some code to rollback on failure  
+      # Here's where you will add some code to rollback on failure
 
-cleanup:
+  cleanup:
     docker:
       # Docker image here
     steps:
-      # Checkout code from git
+      - checkout
       - run:
           name: Get old stack workflow id
           command: |
@@ -60,7 +60,6 @@ cleanup:
 workflows:
   default:
     jobs:
-      
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
