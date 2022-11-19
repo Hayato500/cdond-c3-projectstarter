@@ -205,18 +205,23 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            yum install -y tar gzip
-            yum install -y python gzip
-            yum install -y ansible gzip
-            yum install -y node gzip
-            yum install -y npm gzip
-            yum install -y awscli gzip            
+            pip install tar
+            pip install ansible
+            pip install node
+            pip install npm
+            pip install awscli
+#            yum install -y tar gzip
+#            yum install -y python gzip
+#            yum install -y ansible gzip
+#            yum install -y node gzip
+#            yum install -y npm gzip
+#            yum install -y awscli gzip            
       - run:
           name: Get backend url
           command: |
@@ -229,7 +234,6 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
-            yum install -y npm gzip
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
@@ -248,9 +252,9 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+            apk add --update npm
+            apk add --update nodejs
             pip install awscli
-            pip install npm
-            pip install node
       - run:
           name: Deploy backend
           command: |
