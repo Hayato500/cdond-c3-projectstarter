@@ -34,6 +34,7 @@ commands:
             SUCCESS=$(cat ~/project/backend/migrations_dump.txt)
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             # Curl 
+            cat SUCCESS
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
