@@ -37,7 +37,7 @@ commands:
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
-              cd ~/home/circleci/project/backend
+              cd circleci/project/backend
               npm install
               npm run migration:revert
             fi
