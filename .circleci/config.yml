@@ -266,7 +266,7 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt deploy-backend.yml
 #      - destroy-environment
-      
+
 workflows:
   default:
     jobs:
