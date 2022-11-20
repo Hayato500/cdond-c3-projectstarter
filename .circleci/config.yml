@@ -31,9 +31,9 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(cat ~/project/backend/migrations_dump.txt)
+            SUCCESS=$(cat backend/migrations_dump.txt)
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            Curl 
+            # Curl 
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
@@ -298,13 +298,12 @@ jobs:
           command: |
             # your code here
             # export BACKEND_IP=$(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text)
-            echo BACKEND_IP=$(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text) >> backend_ip
+            echo $(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text) >> backend_ip
       - run:
           name: Backend smoke test.
           command: |
             # your code here
             # Fetch and prepare the BACKEND_IP env var
-            BACKEND_IP=$(cat backend_ip)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
