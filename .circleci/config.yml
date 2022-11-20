@@ -251,6 +251,7 @@ jobs:
             apk add --update ansible
             apk add openssh-client
             pip install awscli
+            mkdir .circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
           command: |
