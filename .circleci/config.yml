@@ -209,7 +209,8 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              echo '1' > ~/project/migrations_status.txt
+              cd ..
+              echo '1' > migrations_status.txt
       - persist_to_workspace:
           root: ~/project
           paths:
