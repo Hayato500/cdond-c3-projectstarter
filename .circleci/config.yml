@@ -25,10 +25,11 @@ commands:
     parameters:
       # Add parameter here     
     steps:
+      - run:
           name: Revert migrations
           when: on_fail
           command: |
-            cd circleci/project/
+            cd circleci/project
             SUCCESS=$(cat migrations_status.txt)
             # SUCCESS = 1
             # echo "[-z "${SUCCESS}"]"
