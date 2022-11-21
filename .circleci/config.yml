@@ -16,7 +16,7 @@ commands:
             echo "-------"
             echo $(ls ~/project/migrations_dump.txt)
             echo "------------"
-
+            echo "$(cat ~/project/migrations_dump.txt)"
 jobs:
   test:
     docker:
@@ -31,7 +31,7 @@ jobs:
           name: Run migrations
           command: |
             echo "------------"
-            echo '' > migrations_dump.txt
+            echo 'text here' > migrations_dump.txt
             echo "------------"
             echo $(ls pwd)
             echo "------------"
