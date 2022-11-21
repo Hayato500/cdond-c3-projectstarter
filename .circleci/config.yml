@@ -31,8 +31,11 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
+            # cd ~/project/.circleci/
             cd ~/project/backend
-            SUCCESS=$(cat "~/project/.circleci/migrations_status.txt")
+            echo $(ls ~/project/.circleci)
+            echo $(cat ~/project/migrations_status.txt)
+            SUCCESS=$(cat "~/project/migrations_status.txt")
             if(( $SUCCESS==1 )); 
               npm install
               npm run migration:revert
