@@ -31,7 +31,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(cat ~/migrations_dump.txt)
+            SUCCESS=$(cat /tmp/home/circleci/project/backend/migrations_dump.txt)
             echo "---------------"
             echo "$SUCCESS"
             echo "---------------"
