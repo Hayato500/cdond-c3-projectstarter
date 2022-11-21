@@ -56,6 +56,8 @@ commands:
           name: Revert migrations
           command: |
             echo $(ls ~/)
+            echo "-------"
+            echo $(ls ~/project)
             exit 1
 
 jobs:
@@ -64,7 +66,21 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - revert-migrations1
-      
+  test2:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: Run migrations
+          command: |
+            echo '' > migrations_dump.txt
+            echo $(ls ~/)
+            exit 1
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend/migrations_dump.txt
+      - destroy-environment
       
       
       
@@ -354,7 +370,9 @@ jobs:
 workflows:
   default:
     jobs:
-      - test
+      - test2
+      - test:
+          requires: test2
       - build-frontend
       - build-backend
       - test-frontend:
