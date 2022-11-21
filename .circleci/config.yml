@@ -26,7 +26,7 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/project/backend
+          at: ~/circleci/project/
       - run:
           name: Revert migrations
           when: on_fail
@@ -210,16 +210,14 @@ jobs:
       - run:
           name: Save migration status
           command: |
-            echo $(pwd)
-            
-            if grep -q "No migrations are pending" ~/project/backend/migrations_dump.txt
+            if grep -q "No migrations are pending" ~/circleci/project/migrations_dump.txt
             then
               echo '1' > migrations_status.txt
             else
               echo '2' > migrations_status.txt
             fi
       - persist_to_workspace:
-          root: ~/project
+          root: ~/circleci/project/
           paths:
             - migrations_status.txt
       - destroy-environment
