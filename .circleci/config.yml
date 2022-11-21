@@ -31,6 +31,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
+            echo $(ls)
             SUCCESS=$(cat ~/tmp/home/circleci/project/backend/migrations_dump.txt)
             echo "---------------"
             echo "$SUCCESS"
@@ -44,8 +45,25 @@ commands:
               npm install
               npm run migration:revert
             fi
+    revert-migrations1:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Revert migrations
+          command: |
+            echo $(ls)
+            return 1
 
 jobs:
+  test:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - revert-migrations
+      
+      
+      
+      
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -332,6 +350,7 @@ jobs:
 workflows:
   default:
     jobs:
+      - test
       - build-frontend
       - build-backend
       - test-frontend:
