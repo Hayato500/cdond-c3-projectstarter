@@ -18,7 +18,7 @@ commands:
             echo "-------"
             echo $(ls ~/project/backend/)
             echo "------------"
-            echo "$(cat ~/project/backend/migrations_dump.txt)"
+            echo "$(cat migrations_dump.txt)"
 jobs:
   test:
     docker:
@@ -46,9 +46,9 @@ jobs:
             echo $(ls ~/project)
             echo "------------"
       - persist_to_workspace:
-          root: ~/
+          root: ~/project/backend
           paths:
-            - project/migrations_dump.txt
+            - migrations_dump.txt
       
 workflows:
   default:
