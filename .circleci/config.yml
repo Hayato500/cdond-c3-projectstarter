@@ -31,7 +31,12 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            echo "$(ls ~/*)"
+            pwd
+            cd ..
+            cd ..
+            cd ..
+            
+            echo "$(ls *)"
             
             SUCCESS=$(cat ~/project/migrations_dump.txt)
             echo "---------------"
