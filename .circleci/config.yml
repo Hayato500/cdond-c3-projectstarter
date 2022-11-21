@@ -26,19 +26,16 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/project/
+          at: ~/
       - run:
           name: Revert migrations
           when: on_fail
           command: |
-            echo $(ls)
-            cat migrations_dump.txt
-            
-            SUCCESS=$(cat migrations_dump.txt)
-            SUCCESS = 1
-             if(( $SUCCESS==1 ));
+            SUCCESS=$(cat ~/migrations_status.txt)
+            # SUCCESS = 1
             # echo "[-z "${SUCCESS}"]"
             # if [ -z "${SUCCESS}" ];
+            if(( $SUCCESS==1 ));
             then
               cd circleci/project/backend
               npm install
@@ -206,10 +203,16 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+      - run:
+          name: Save migration status
+          command: |
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            then
+              echo "1" > ~/migrations_status.txt
       - persist_to_workspace:
-          root: ~/project/backend
+          root: ~/
           paths:
-            - ./*
+            - migrations_status.txt
       - destroy-environment
 
   deploy-frontend:
