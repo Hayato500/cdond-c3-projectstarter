@@ -26,12 +26,12 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/project/migrations_status.txt
+          at: ~/project
       - run:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(cat ~/project/migrations_status.txt)
+            SUCCESS=$(cat migrations_status.txt)
             # SUCCESS = 1
             # echo "[-z "${SUCCESS}"]"
             # if [ -z "${SUCCESS}" ];
@@ -198,6 +198,8 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
@@ -225,6 +227,8 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -296,13 +300,14 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
             apk add --update npm
             apk add --update nodejs
             apk add --update curl
-            # apk add openssh-client
             pip install awscli
       - run:
           name: Backend smoke test.
