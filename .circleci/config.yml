@@ -55,8 +55,8 @@ commands:
       - run:
           name: Revert migrations
           command: |
-            echo $(ls)
-            return 1
+            echo $(ls ~/)
+            exit 1
 
 jobs:
   test:
