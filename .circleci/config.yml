@@ -14,7 +14,7 @@ commands:
             echo "------------"
             echo $(ls ~/)
             echo "------------"
-            echo "$(cat migrations_dump.txt)"
+            cat migrations_dump.txt
 jobs:
   test:
     docker:
