@@ -205,8 +205,6 @@ jobs:
           command: |
             cd backend
             npm install
-            ls -l migrations_dump.txt
-            
             npm run migrations > migrations_dump.txt
       - persist_to_workspace:
           root: ~/
