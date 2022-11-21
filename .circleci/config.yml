@@ -14,9 +14,11 @@ commands:
             echo "------------"
             echo $(ls ~/)
             echo "-------"
-            echo $(ls ~/project/migrations_dump.txt)
+            echo $(ls ~/project/)
+            echo "-------"
+            echo $(ls ~/project/backend/)
             echo "------------"
-            echo "$(cat ~/project/migrations_dump.txt)"
+            echo "$(cat ~/project/backend/migrations_dump.txt)"
 jobs:
   test:
     docker:
@@ -30,6 +32,8 @@ jobs:
       - run:
           name: Run migrations
           command: |
+            mkdir backend
+            cd backend
             echo "------------"
             echo 'text here' > migrations_dump.txt
             echo "------------"
