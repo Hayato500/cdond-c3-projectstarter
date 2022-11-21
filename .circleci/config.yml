@@ -30,7 +30,7 @@ commands:
           when: on_fail
           command: |
             cd ~/project/backend
-            if [[ -f "~/project/.circleci/outputs/db_migration_success" ]]; then
+            if [[ -f "~/project/.circleci/outputs/migrations_status" ]]; then
               npm i
               npm run migration:revert
             fi
@@ -202,7 +202,6 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - aws-cli/setup
       - attach_workspace:
           at: ~/
       - run:
@@ -215,13 +214,15 @@ jobs:
       - run:
           name: Save migration status
           command: |
+            cd backend
             if grep -q "No migrations are pending" ~/project/migrations_dump.txt
             then
-              touch ~/project/.circleci/outputs/db_migration_success
+            #  touch ~/project/.circleci/outputs/migrations_status
+              echo '1' > migrations_status.txt
+            else
+              echo '2' > migrations_status.txt
             fi
-#              echo '1' > migrations_status.txt
-#            else
-#              echo '2' > migrations_status.txt
+
       - persist_to_workspace:
           root: ~/
           paths:
