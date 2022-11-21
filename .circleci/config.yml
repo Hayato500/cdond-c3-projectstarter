@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            #mkdir ~/project/backend
+            mkdir ~/project/backend/
             #cd backend
             #echo "------------"
             echo 'text here' > migrations_dump.txt
