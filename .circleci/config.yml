@@ -33,7 +33,7 @@ commands:
           command: |
             cd ~/project/backend
             SUCCESS=$(cat ~/project/.circleci/migrations_status.txt)
-            if(( $SUCCESS==1 ));
+            if [[ $SUCCESS -eq 1 ]];
             then
               npm install
               npm run migration:revert
