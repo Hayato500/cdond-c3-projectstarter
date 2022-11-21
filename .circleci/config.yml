@@ -210,7 +210,7 @@ jobs:
           name: Save migration status
           command: |
             cd backend
-            if grep -q "No migrations are pending" ~/project/migrations_dump.txt
+            if grep -q "No migrations are pending" ~/project/backend/migrations_dump.txt
             then
               echo '1' > ~/project/.circleci/migrations_status.txt
             else
