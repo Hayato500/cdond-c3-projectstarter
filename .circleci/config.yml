@@ -202,6 +202,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - aws-cli/setup
       - attach_workspace:
           at: ~/
       - run:
