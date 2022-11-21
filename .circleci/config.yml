@@ -31,7 +31,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            echo $(ls ~/)
+            echo $(ls)
             cat migrations_dump.txt
             
             SUCCESS=$(cat migrations_dump.txt)
