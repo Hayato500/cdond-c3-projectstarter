@@ -216,7 +216,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/backend/
+            - project/backend/migrations_dump.txt
       - destroy-environment
 
   deploy-frontend:
