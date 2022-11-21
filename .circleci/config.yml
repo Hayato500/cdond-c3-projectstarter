@@ -45,7 +45,11 @@ commands:
               npm install
               npm run migration:revert
             fi
-    revert-migrations1:
+  revert-migrations1:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      # Add parameter here     
+    steps:
       - attach_workspace:
           at: ~/
       - run:
@@ -59,7 +63,7 @@ jobs:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      - revert-migrations
+      - revert-migrations1
       
       
       
