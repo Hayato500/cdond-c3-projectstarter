@@ -11,9 +11,11 @@ commands:
       - run:
           name: Revert migrations
           command: |
+            echo "------------"
             echo $(ls ~/)
             echo "-------"
-            echo $(ls ~/project)
+            echo $(ls ~/project/migrations_dump.txt)
+            echo "------------"
 
 jobs:
   test:
@@ -28,8 +30,15 @@ jobs:
       - run:
           name: Run migrations
           command: |
+            echo "------------"
             echo '' > migrations_dump.txt
+            echo "------------"
+            echo $(ls pwd)
+            echo "------------"
             echo $(ls ~/)
+            echo "------------"
+            echo $(ls ~/project)
+            echo "------------"
       - persist_to_workspace:
           root: ~/
           paths:
