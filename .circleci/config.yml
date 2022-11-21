@@ -211,6 +211,7 @@ jobs:
             then
               cd ..
               echo '1' > migrations_status.txt
+            fi
       - persist_to_workspace:
           root: ~/project
           paths:
