@@ -38,7 +38,9 @@ commands:
             echo "$SUCCESS"
             echo "---------------"
             SUCCESS = 1
-            if(( $SUCCESS==1 )); 
+            # if(( $SUCCESS==1 ));
+            echo "[-z "${SUCCESS}"]"
+            if [ -z "${SUCCESS}" ];
             then
               cd circleci/project/backend
               npm install
