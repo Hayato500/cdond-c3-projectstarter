@@ -26,18 +26,12 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/project/
       - run:
           name: Revert migrations
           when: on_fail
           command: |
-            echo "---------------"
-            echo "$(ls *)"
-            echo "---------------"
-            cd backend
-            echo "$(ls *)"
-            echo "---------------"
-            SUCCESS=$(cat ~/project/migrations_dump.txt)
+            SUCCESS=$(cat migrations_dump.txt)
             echo "---------------"
             echo "$SUCCESS"
             echo "---------------"
