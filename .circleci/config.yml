@@ -13,10 +13,6 @@ commands:
           command: |
             echo "------------"
             echo $(ls ~/)
-            echo "-------"
-            echo $(ls ~/project/)
-            echo "-------"
-            echo $(ls ~/project/backend/)
             echo "------------"
             echo "$(cat migrations_dump.txt)"
 jobs:
@@ -34,16 +30,8 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            mkdir ~/project/backend/
-            cd ~/project/backend
             echo "------------"
             echo 'text here' > migrations_dump.txt
-            echo "------------"
-            echo $(ls pwd)
-            echo "------------"
-            echo $(ls ~/)
-            echo "------------"
-            echo $(ls ~/project)
             echo "------------"
       - persist_to_workspace:
           root: ~/project/backend
