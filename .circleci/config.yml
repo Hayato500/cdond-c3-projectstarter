@@ -210,14 +210,14 @@ jobs:
       - run:
           name: Save migration status
           command: |
-            if grep -q "No migrations are pending" ~/circleci/project/migrations_dump.txt
+            if grep -q "No migrations are pending" ~/project/migrations_dump.txt
             then
               echo '1' > migrations_status.txt
             else
               echo '2' > migrations_status.txt
             fi
       - persist_to_workspace:
-          root: ~/circleci/project/
+          root: ~/project/
           paths:
             - migrations_status.txt
       - destroy-environment
