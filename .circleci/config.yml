@@ -372,7 +372,7 @@ workflows:
     jobs:
       - test2
       - test:
-          requires: test2
+          requires: [test2]
       - build-frontend
       - build-backend
       - test-frontend:
