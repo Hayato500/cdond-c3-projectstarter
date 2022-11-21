@@ -25,6 +25,8 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - revert-migrations1
+      
+      
   test2:
     docker:
       - image: circleci/node:13.8.0
@@ -32,7 +34,7 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            mkdir backend
+            mkdir ~/project/backend
             cd backend
             echo "------------"
             echo 'text here' > migrations_dump.txt
