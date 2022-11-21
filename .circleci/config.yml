@@ -35,8 +35,8 @@ jobs:
           name: Run migrations
           command: |
             mkdir ~/project/backend/
-            #cd backend
-            #echo "------------"
+            cd ~/project/backend
+            echo "------------"
             echo 'text here' > migrations_dump.txt
             echo "------------"
             echo $(ls pwd)
