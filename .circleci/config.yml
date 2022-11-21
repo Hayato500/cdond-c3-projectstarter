@@ -30,7 +30,7 @@ commands:
           when: on_fail
           command: |
             cd ~/project/backend
-            if [[ -f "~/project/.circleci/outputs/migrations_status" ]]; then
+            if [[ -f "~/project/.circleci/migrations_status.txt" ]]; then
               npm i
               npm run migration:revert
             fi
@@ -218,16 +218,16 @@ jobs:
             cd backend
             if grep -q "No migrations are pending" ~/project/migrations_dump.txt
             then
-            #  touch ~/project/.circleci/outputs/migrations_status.txt
-              echo '1' > ~/project/.circleci/outputs/migrations_status.txt
+              echo '1' > ~/project/.circleci/migrations_status.txt
             else
-              echo '2' > ~/project/.circleci/outputs/migrations_status.txt
+              echo '2' > ~/project/.circleci/migrations_status.txt
             fi
+            #  touch ~/project/.circleci/migrations_status.txt
 
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/outputs/
+            - project/.circleci/
       - destroy-environment
 
   deploy-frontend:
