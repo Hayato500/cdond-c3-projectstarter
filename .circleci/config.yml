@@ -32,7 +32,7 @@ commands:
           when: on_fail
           command: |
             echo $(ls)
-            SUCCESS=$(cat ~/project/migrations_dump.txt)
+            SUCCESS=$(cat ~/project/backend/migrations_dump.txt)
             echo "---------------"
             echo "$SUCCESS"
             echo "---------------"
