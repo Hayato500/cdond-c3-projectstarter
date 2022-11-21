@@ -12,6 +12,8 @@ commands:
           name: Revert migrations
           command: |
             echo "------------"
+            echo $(ls *)
+            echo "------------"
             echo $(ls ~/)
             echo "------------"
             cat migrations_dump.txt
