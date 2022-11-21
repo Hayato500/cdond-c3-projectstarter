@@ -26,7 +26,7 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/project/backend
       - run:
           name: Revert migrations
           when: on_fail
@@ -210,6 +210,8 @@ jobs:
       - run:
           name: Save migration status
           command: |
+            echo $(pwd)
+            
             if grep -q "No migrations are pending" ~/project/backend/migrations_dump.txt
             then
               echo '1' > migrations_status.txt
