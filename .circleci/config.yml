@@ -208,6 +208,7 @@ jobs:
           command: |
             cd backend
             pwd
+            echo $(~/project/backend/migrations_dump.txt)
             npm install
             npm run migrations > migrations_dump.txt
       - persist_to_workspace:
