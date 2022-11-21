@@ -26,7 +26,7 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/project/migrations_status.txt
       - run:
           name: Revert migrations
           when: on_fail
