@@ -32,9 +32,7 @@ commands:
           when: on_fail
           command: |
             cd ~/project/backend
-            echo $(ls ~/project/backend)
-            echo $(cat ~/project/.circleci/migrations_status.txt)
-            SUCCESS=$(cat "~/project/.circleci/migrations_status.txt")
+            SUCCESS=$(cat ~/project/.circleci/migrations_status.txt)
             if(( $SUCCESS==1 )); 
               npm install
               npm run migration:revert
@@ -204,7 +202,9 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+            echo "--------"
             cat migrations_dump.txt
+            echo "--------"
       - run:
           name: Save migration status
           command: |
