@@ -35,13 +35,10 @@ commands:
             cat migrations_dump.txt
             
             SUCCESS=$(cat migrations_dump.txt)
-            echo "---------------"
-            echo "$SUCCESS"
-            echo "---------------"
             SUCCESS = 1
-            # if(( $SUCCESS==1 ));
-            echo "[-z "${SUCCESS}"]"
-            if [ -z "${SUCCESS}" ];
+             if(( $SUCCESS==1 ));
+            # echo "[-z "${SUCCESS}"]"
+            # if [ -z "${SUCCESS}" ];
             then
               cd circleci/project/backend
               npm install
@@ -212,7 +209,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project/backend
           paths:
-            - migrations_dump.txt
+            - ./*
       - destroy-environment
 
   deploy-frontend:
