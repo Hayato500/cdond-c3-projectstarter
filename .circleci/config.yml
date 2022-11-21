@@ -210,6 +210,8 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               cd ..
+              pwd
+              echo $(ls)
               echo '1' > migrations_status.txt
             fi
       - persist_to_workspace:
