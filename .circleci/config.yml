@@ -29,17 +29,23 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            cd circleci/project
-            SUCCESS=$(cat migrations_status.txt)
+            cd ~/project/backend
+            if [[ -f "~/project/.circleci/outputs/db_migration_success" ]]; then
+              npm i
+              npm run migration:revert
+            fi
+            
+#            cd circleci/project
+#            SUCCESS=$(cat migrations_status.txt)
             # SUCCESS = 1
             # echo "[-z "${SUCCESS}"]"
             # if [ -z "${SUCCESS}" ];
-            if(( $SUCCESS==1 ));
-            then
-              cd circleci/project/backend
-              npm install
-              npm run migration:revert
-            fi
+#            if(( $SUCCESS==1 ));
+#            then
+#              cd circleci/project/backend
+#              npm install
+#              npm run migration:revert
+#            fi
 
 jobs:
   build-frontend:
@@ -211,14 +217,15 @@ jobs:
           command: |
             if grep -q "No migrations are pending" ~/project/migrations_dump.txt
             then
-              echo '1' > migrations_status.txt
-            else
-              echo '2' > migrations_status.txt
+              touch ~/project/.circleci/outputs/db_migration_success
             fi
+#              echo '1' > migrations_status.txt
+#            else
+#              echo '2' > migrations_status.txt
       - persist_to_workspace:
-          root: ~/project/
+          root: ~/
           paths:
-            - migrations_status.txt
+            - project/.circleci/outputs/
       - destroy-environment
 
   deploy-frontend:
