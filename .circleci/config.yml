@@ -12,7 +12,7 @@ commands:
           name: Revert migrations
           command: |
             echo "------------"
-            echo $(ls *)
+            pwd
             echo "------------"
             echo $(ls ~/)
             echo "------------"
