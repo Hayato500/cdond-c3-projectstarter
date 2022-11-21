@@ -7,7 +7,7 @@ commands:
       # Add parameter here     
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/project/
       - run:
           name: Revert migrations
           command: |
