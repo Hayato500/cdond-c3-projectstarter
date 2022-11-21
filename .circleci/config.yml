@@ -45,44 +45,8 @@ commands:
               npm install
               npm run migration:revert
             fi
-  revert-migrations1:
-    description: Revert the last migration if successfully run in the current workflow.
-    parameters:
-      # Add parameter here     
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Revert migrations
-          command: |
-            echo $(ls ~/)
-            echo "-------"
-            echo $(ls ~/project)
-            exit 1
 
 jobs:
-  test:
-    docker:
-      - image: python:3.7-alpine3.11
-    steps:
-      - revert-migrations1
-  test2:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run:
-          name: Run migrations
-          command: |
-            echo '' > migrations_dump.txt
-            echo $(ls ~/)
-            exit 1
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/migrations_dump.txt
-      
-      
-      
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -369,9 +333,6 @@ jobs:
 workflows:
   default:
     jobs:
-      - test2
-      - test:
-          requires: [test2]
       - build-frontend
       - build-backend
       - test-frontend:
