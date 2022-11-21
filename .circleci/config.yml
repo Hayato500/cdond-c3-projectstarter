@@ -34,7 +34,9 @@ commands:
             SUCCESS=$(cat ~/project/backend/migrations_dump.txt)
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             # Curl 
+            echo "---------------"
             echo "$SUCCESS"
+            echo "---------------"
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
@@ -203,8 +205,9 @@ jobs:
           command: |
             cd backend
             npm install
+             ls -l migrations_dump.txt
+            
             npm run migrations > migrations_dump.txt
-            pwd
       - persist_to_workspace:
           root: ~/
           paths:
@@ -296,17 +299,12 @@ jobs:
             # apk add openssh-client
             pip install awscli
       - run:
-          name: Get backend url
-          command: |
-            # your code here
-            # export BACKEND_IP=$(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text)
-            echo $(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text) >> backend_ip
-      - run:
           name: Backend smoke test.
           command: |
             # your code here
             # Fetch and prepare the BACKEND_IP env var
-            export API_URL="http://$(cat backend_ip):3030"
+            BACKEND_IP=$(aws ec2 describe-instances --query Reservations[*].Instances[*].PublicIpAddress --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" "Name=instance-state-name,Values=running" --output text)
+            export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
@@ -318,7 +316,7 @@ jobs:
           name: Frontend smoke test.
           command: |
             # your code here
-            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-${AWS_DEFAULT_REGION}.amazonaws.com/#/employees"            
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
