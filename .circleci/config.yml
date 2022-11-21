@@ -218,10 +218,10 @@ jobs:
             cd backend
             if grep -q "No migrations are pending" ~/project/migrations_dump.txt
             then
-            #  touch ~/project/.circleci/outputs/migrations_status
-              echo '1' > migrations_status.txt
+            #  touch ~/project/.circleci/outputs/migrations_status.txt
+              echo '1' > ~/project/.circleci/outputs/migrations_status.txt
             else
-              echo '2' > migrations_status.txt
+              echo '2' > ~/project/.circleci/outputs/migrations_status.txt
             fi
 
       - persist_to_workspace:
