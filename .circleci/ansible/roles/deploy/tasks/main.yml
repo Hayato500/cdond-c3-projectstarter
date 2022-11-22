@@ -14,10 +14,12 @@
   apt:
     upgrade: "yes"
     
-- name: "Install dependencies for project"
-  shell: |
-    cd ~/web
-    npm install
+- name: "Install npm"
+  become: yes
+  apt:
+    name: "npm"
+    state: latest
+    update_cache: yes
     
 - name: "Install pm2"
   become: yes
@@ -29,7 +31,6 @@
     
 - name: "Start pm2"
   shell: |
-    export
     cd ~/web/dist
     pm2 stop default
     pm2 start main.js
