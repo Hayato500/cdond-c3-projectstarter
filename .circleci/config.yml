@@ -282,20 +282,22 @@ jobs:
             pip install awscli
             mkdir .circleci/ansible/roles/deploy/files
       - run:
-          name: Deploy backend
+          name: Compress backend
           command: |
             cd backend
-            npm i
             npm run build
-            
-            cd ..
-            # Zip the directory
-            tar -C backend -czvf .circleci/ansible/roles/deploy/files/artifact.tar.gz .
+            tar -czf .circleci/ansible/roles/deploy/files/artifact.tar.gz dist/* package*
+      - run:
+          name: Deploy backend
+          command: |
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
+            export ANSIBLE_HOST_KEY_CHECKING=False
             
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment
       - revert-migrations
