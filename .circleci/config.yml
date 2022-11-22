@@ -32,6 +32,8 @@ jobs:
       - run:
           name: Run migrations
           command: |
+            echo ${TYPEORM_ENTITIES}
+            exit 1
             mkdir ~/project/backend/
             cd ~/project/backend
             echo "------------"
