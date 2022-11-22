@@ -136,7 +136,6 @@ jobs:
             cd backend
             npm install
             npm run test
-            
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -299,15 +298,17 @@ jobs:
     
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - install_awscli
       - install_ansible
       - install_nodejs
+      - install_awscli
       - run:
           name: Install dependencies
           command: |
+            apk add --update npm
+            mkdir .circleci/ansible/roles/deploy/files
             cd backend
             npm install
       - add_ssh_keys:
@@ -315,28 +316,21 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          keys: [backend-build]
-      - run:
-          name: Compress backend
-          command: |
-            mkdir .circleci/ansible/roles/deploy/files
-            cd backend
-            npm run build
-            tar -czf artifact.tar.gz dist/* package*
-            
-            cd ..
-            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+          keys: [backend-build]            
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
-            export ANSIBLE_HOST_KEY_CHECKING=False
+            cd backend
+            npm run build
+            
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf .circleci/ansible/roles/deploy/files/artifact.tar.gz .
             
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment
       - revert-migrations
