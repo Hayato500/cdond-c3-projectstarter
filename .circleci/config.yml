@@ -280,7 +280,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          keys: [backend-build]            
+          keys: [backend-build]         
       - run:
           name: Deploy backend
           command: |
@@ -291,7 +291,6 @@ jobs:
             tar -czf artifact.tar.gz dist/* package*
             cd ..
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
-            
             
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
