@@ -33,6 +33,7 @@ commands:
           command: |
             cd ~/project/backend
             SUCCESS=$(cat ~/project/.circleci/migrations_status.txt)
+            echo $(SUCCESS)
             if [[ $SUCCESS -eq 1 ]];
             then
               npm install
