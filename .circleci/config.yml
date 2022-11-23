@@ -79,14 +79,28 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: npm audit --audit-level=critical --prefix backend
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: Backend test
+          command: |
+            cd backend
+            npm install
+            npm audit fix --audit-level=critical --force
 
   analyze_frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: npm audit --audit-level=critical --prefix frontend
+      - restore_cache:
+          keys: [frontend-build]
+      - run:
+          name: Frontend test
+          command: |
+            cd frontend
+            npm install
+            npm audit fix --audit-level=critical --force
 
   deploy_backend_infrastructure:
     docker:
