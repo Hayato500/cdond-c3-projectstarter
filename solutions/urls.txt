@@ -1,5 +1,5 @@
-[URL01]=https://github.com/Hayato500/cdond-c3-projectstarter
-[URL02]=udapeople-28d75f5.s3.amazonaws.com/index.html
-[URL03_SCREENSHOT]= # Frontend url
-[URL04_SCREENSHOT]= # https://<Public-IP>:3030/api/status
-[URL05_SCREENSHOT]=ec2-54-175-204-160.compute-1.amazonaws.com:9090/targets
+[URL01]= https://github.com/Hayato500/cdond-c3-projectstarter
+[URL02]= udapeople-28d75f5.s3.amazonaws.com/index.html
+[URL03_SCREENSHOT]= d27xye8u9remdq.cloudfront.net
+[URL04_SCREENSHOT]= ec2-44-201-251-133.compute-1.amazonaws.com:3030/api/status
+[URL05_SCREENSHOT]= ec2-54-175-204-160.compute-1.amazonaws.com:9090/targets
