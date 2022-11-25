@@ -1,5 +1,5 @@
 [URL01]= https://github.com/Hayato500/cdond-c3-projectstarter
-[URL02]= udapeople-28d75f5.s3.amazonaws.com/index.html
-[URL03_SCREENSHOT]= d27xye8u9remdq.cloudfront.net
-[URL04_SCREENSHOT]= ec2-44-201-251-133.compute-1.amazonaws.com:3030/api/status
-[URL05_SCREENSHOT]= ec2-54-175-204-160.compute-1.amazonaws.com:9090/targets
+[URL02]= udapeople-86781a8.s3.amazonaws.com/index.html
+[URL03_SCREENSHOT]= d18srnhjp7q3t6.cloudfront.net
+[URL04_SCREENSHOT]= ec2-54-243-18-141.compute-1.amazonaws.com:3030/api/status
+[URL05_SCREENSHOT]= ec2-3-86-217-35.compute-1.amazonaws.com:9090/targets
