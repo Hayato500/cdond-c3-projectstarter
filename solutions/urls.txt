@@ -1,1 +1,4 @@
 [URL01]=https://github.com/Hayato500/cdond-c3-projectstarter
+[URL02]=udapeople-28d75f5.s3.amazonaws.com/index.html
+[URL03_SCREENSHOT]=
+[URL04_SCREENSHOT]=
